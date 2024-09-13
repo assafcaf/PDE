@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 class QLearningAgent:
     # initial an agent with certain amount of memory
-    def __init__(self, env, learning_rate=0.2, gamma=0.9, epsilon=1, epochs=5000, agent_memory=2):
+    def __init__(self, env, learning_rate=0.2, gamma=0.99, epsilon=1, epochs=5000, agent_memory=2):
         self.learning_rate = learning_rate
         self.gamma = gamma
         self.epsilon = epsilon
@@ -28,14 +28,10 @@ class QLearningAgent:
         :param state: tuple of the form (my_hist, op_hist)
         :return: row number as a function of this tuple
         """
-        my_hist, op_hist = state[0], state[1]
-        total_state = list(my_hist) + list(op_hist)
-        total_state = list(reversed(total_state))
-
-        row_number = 0
-        for i, value in enumerate(total_state):
-            row_number += (2 ** i) * int(total_state[i])
-        return row_number
+        t = 0
+        for i, x in enumerate(state.flatten()[::-1]):
+            t += 2 ** i * x
+        return t
 
     # get observation and return action
     def predict(self, env, obs, deterministic=False):
