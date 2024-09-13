@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 
 
-class QLearninigAgent:
+class QLearningAgent:
     # initial an agent with certain amount of memory
     def __init__(self, env, learning_rate=0.2, gamma=0.9, epsilon=1, epochs=5000, agent_memory=2):
         self.learning_rate = learning_rate
